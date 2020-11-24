@@ -1,0 +1,203 @@
+<div class="container">
+    <div class="row col-md-12 col-md-offset-2 custyle">
+        <table class="table table-striped custab">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Estado</th>
+                    <th>Cod Estado</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>{{nombre}}</td>
+                <td>{{correo}}</td>
+                <td>{{sesion}}</td>
+                <td>{{estado}}</td>
+            </tr>
+        </table>
+
+        <div class="container">
+            <br>
+
+            <hr>
+
+            <div class="card bg-light">
+                <article class="card-body mx-auto" style="max-width: 400px;">
+                    <h4 class="card-title mt-3 text-center">Para realizar la seleccion del cable solicitado. Favor
+                        llenar los siguientes datos</h4>
+
+                    <form #formProyecto="ngForm" (ngSubmit)="buscarSeleccion(formProyecto)">
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                            </div>
+                            <input id="cor" name="corriente" class="form-control" placeholder="Corriente" type="number"
+                                [(ngModel)]='parametros.corriente' ngModel required>
+                        </div>
+
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                            </div>
+                            <input id="ten" name="tension" class="form-control" placeholder="Tensión" type="number"
+                                [(ngModel)]='parametros.tension' ngModel required>
+
+                        </div>
+
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                            </div>
+                            <input id="inst" name="instalacion" class="form-control" placeholder="Instalación"
+                                type="text" [(ngModel)]='parametros.instalacion' ngModel required>
+
+                        </div>
+
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                            </div>
+                            <input id="mat" name="material" class="form-control" placeholder="Cobre o Aluminio"
+                                type="text" [(ngModel)]='parametros.material' ngModel required>
+
+                        </div>
+
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                            </div>
+                            <input id="pro" name="proyecto" class="form-control"
+                                placeholder="Cuestesitas1 o Cuestesitas2" type="text" [(ngModel)]='parametros.proyecto'
+                                ngModel required>
+
+                        </div>
+
+                        <div class="alert alert-danger" role="alert" *ngIf="isError">
+                            {{errorRequestMsg}}
+                        </div>
+
+                        <div class="form-group">
+
+                            <input type="submit" id="parametrosbtn" value="Buscar selección">
+
+                        </div>
+                    </form>
+
+                </article>
+            </div>
+
+        </div>
+
+        <br><br>
+
+        <div class="container">
+            <br>
+
+            <hr>
+
+            <div class="card bg-light">
+                
+
+                <div class="" role="alert" *ngIf="isTable">
+                    <table class="table table-striped custab">
+                        <thead>
+                            <tr>
+                                <th>Ampacidad</th>
+                                <th>Material</th>
+                                <th>Tensión</th>
+                                <th>Espesor</th>
+                                <th>Diámetro</th>
+                                <th>CodCable</th>
+                                <th>Cor corregida</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>{{selSugerida.ampacidad}}</td>
+                            <td>{{selSugerida.nombreMaterial}}</td>
+                            <td>{{selSugerida.tensionCorregida}}</td>
+                            <td>{{selSugerida.espesorPantallaCorregido}}</td>
+                            <td>{{selSugerida.diametroCableCorregido}}</td>
+                            <td>{{selSugerida.codigo}}</td>
+                            <td>{{selSugerida.tensionCorregida}}</td>
+                        </tr>
+                    </table>
+
+                    <article class="card-body mx-auto" style="max-width: 400px;">
+
+                        <form #formGuardar="ngForm" (ngSubmit)="guardarSeleccion(formGuardar)">
+
+                            <p>Ingresa un nombre y preciona el boton guardar para preservar esta Seleccion de
+                                Cableado</p>
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                                </div>
+                                <input id="nombreSel" name="nombreSel" class="form-control"
+                                    placeholder="Nombre de tu seleccion" type="text" [(ngModel)]='nuevaSel.nombre'
+                                    ngModel required>
+
+                            </div>
+                            <div class="form-group">
+
+                                <input type="submit" id="seleccionbtn" value="Guardar">
+    
+                            </div>
+
+                            <div class="alert alert-primary" role="alert" *ngIf="isSave">
+                                {{notificationRequestMsg}}
+                            </div>
+
+                        </form>
+                    </article>
+                </div>
+            </div>
+
+        </div>
+
+
+        <br><br>
+
+        <table class="table table-striped custab">
+            <thead>
+                <tr>
+                    <th>Nom Seleccion</th>
+                    <th>Corriente</th>
+                    <th>Tensión</th>
+                    <th>Ampacidad</th>
+                    <th>Corriente corregida</th>
+                    <th>Usuario</th>
+                    <th>Nom proyecto</th>
+                    <th>Fecha Ins</th>
+                </tr>
+            </thead>
+            <tr *ngFor="let seleccion of selecciones">
+                <td>
+                    {{seleccion.nombreSeleccion}}
+                </td>
+                <td>
+                    {{seleccion.corriente}}
+                </td>
+                <td>
+                    {{seleccion.tensionCorregida}}
+                </td>
+                <td>
+                    {{seleccion.ampacidad}}
+                </td>
+                <td>
+                    {{seleccion.corrienteCorregida}}
+                </td>
+                <td>
+                    {{seleccion.nombreUsuario}}
+                </td>
+                <td>
+                    {{seleccion.nombreProyecto}}
+                </td>
+                <td>
+                    {{seleccion.fechaInsercion}}
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<app-progressbar *ngIf="progressBarShow"></app-progressbar>
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+  
+
+    <form #formLogin="ngForm" (ngSubmit)="onLogin(formLogin)">
+      <div class="alert alert-danger" role="alert" *ngIf="isError">
+        {{errorRequestMsg}}
+      </div>
+      <input type="text" id="login" class="fadeIn second" name="login" placeholder="Usuario" [(ngModel)]="user.usuario" ngModel required>
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="Contraseña" [(ngModel)]="user.contrasena" ngModel required>
+      <input type="submit" id="loginbtn" value="Iniciar sesión" class="fadeIn fourth btn">
+    </form>
+
+  </div>
+</div>
